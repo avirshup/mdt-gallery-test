@@ -2,8 +2,7 @@ FROM andrewosh/binder-base
 
 RUN pip install moldesign
 
-RUN jupyter nbextensions enable --python widgetsnbextension
-RUN jupyter nbextensions enable --python nbmolviz
+USER root
 
 RUN apt-get update
 
@@ -35,3 +34,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install https://github.com/pandegroup/pdbfixer/archive/v1.2.tar.gz
 
+
+RUN jupyter nbextension enable --python widgetsnbextension
+RUN jupyter nbextension enable --python nbmolviz
