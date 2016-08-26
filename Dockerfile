@@ -2,6 +2,9 @@ FROM andrewosh/binder-base
 
 RUN pip install moldesign
 
+RUN jupyter nbextensions enable --python widgetsnbextension
+RUN jupyter nbextensions enable --python nbmolviz
+
 RUN apt-get update
 
 RUN apt-get install -y \
