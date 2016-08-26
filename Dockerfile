@@ -1,13 +1,12 @@
 FROM andrewosh/binder-base
 
 RUN pip install moldesign
+RUN echo y | conda install -c omnia openmm
+RUN pip install https://github.com/pandegroup/pdbfixer/archive/v1.2.tar.gz
 
 USER root
 
-RUN echo y | conda install -c omnia openmm
-
 RUN apt-get update
-
 RUN apt-get install -y \
   openbabel \
   python-openbabel
@@ -33,9 +32,6 @@ RUN apt-get update && apt-get install -y \
      wget \
      git \
      gfortran
-
-
-RUN pip install https://github.com/pandegroup/pdbfixer/archive/v1.2.tar.gz
 
 
 RUN jupyter nbextension enable --python widgetsnbextension
