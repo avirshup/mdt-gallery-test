@@ -2,7 +2,11 @@ FROM andrewosh/binder-base
 
 RUN pip install moldesign
 RUN echo y | conda install -c omnia openmm
+RUN echo y | conda install -c clyde_fare openbabel=2.3.2
 RUN pip install https://github.com/pandegroup/pdbfixer/archive/v1.2.tar.gz
+
+ENV PYTHONPATH=/opt:$PYTHONPATH
+
 
 USER root
 
@@ -11,7 +15,7 @@ RUN apt-get install -y \
   openbabel \
   python-openbabel
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
   cmake \
   python-h5py \
   g++ \
@@ -25,14 +29,10 @@ RUN apt-get update && apt-get install -y \
  && cd /opt/pyscf/lib \
    && mv CMakeLists.txt CMakeLists.txt.old \
    && sed -e "s/libcint\.git/qcint.git/" CMakeLists.txt.old > CMakeLists.txt \
-   && mkdir build && cd build && cmake .. && make \
- && apt-get -y remove --purge \
-     cmake \
-     g++ \
-     wget \
-     git \
-     gfortran
+   && mkdir build && cd build && cmake .. && make
 
 
 RUN jupyter nbextension enable --python widgetsnbextension
 RUN jupyter nbextension enable --python nbmolviz
+
+ENV PYTHONPATH=/opt:$PYTHONPATH
