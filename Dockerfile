@@ -4,6 +4,8 @@ RUN pip install moldesign
 
 USER root
 
+RUN echo y | conda install -c omnia openmm
+
 RUN apt-get update
 
 RUN apt-get install -y \
@@ -31,6 +33,7 @@ RUN apt-get update && apt-get install -y \
      wget \
      git \
      gfortran
+
 
 RUN pip install https://github.com/pandegroup/pdbfixer/archive/v1.2.tar.gz
 
