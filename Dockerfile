@@ -1,8 +1,10 @@
+FROM andrewosh/binder-base
+
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda update -q conda
 
-
-RUN conda install -c omnia openmm openbabel
+RUN conda install -c clyde_fare openbabel
+RUN conda install -c omnia openmm
 RUN conda install numpy scipy matplotlib
 RUN pip install moldesign
 
@@ -34,7 +36,7 @@ RUN jupyter nbextension enable --python nbmolviz
 
 RUN cd /home/main/notebooks \
  && cp -r  /home/main/anaconda2/lib/python2.7/site-packages/moldesign/_notebooks/ ./ \
- && mv "Getting\ Started.ipynb" index.ipynb
+ && mv "Getting Started.ipynb" index.ipynb
 
 RUN python -c "from matplotlib.pyplot import *"  # build the font cache before deploying
 
