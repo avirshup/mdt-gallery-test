@@ -1,19 +1,18 @@
 FROM andrewosh/binder-base
 
+RUN conda config --set always_yes yes --set changeps1 no
+RUN conda update -q conda
+
+
+RUN conda install -c omnia openmm openbabel
+RUN conda install numpy scipy matplotlib
 RUN pip install moldesign
-RUN echo y | conda install -c omnia openmm
-RUN echo y | conda install -c clyde_fare openbabel=2.3.2
-RUN pip install https://github.com/pandegroup/pdbfixer/archive/v1.2.tar.gz
 
 ENV PYTHONPATH=/opt:$PYTHONPATH
-
 
 USER root
 
 RUN apt-get update
-RUN apt-get install -y \
-  openbabel \
-  python-openbabel
 
 RUN apt-get install -y \
   cmake \
@@ -34,5 +33,6 @@ RUN apt-get install -y \
 
 RUN jupyter nbextension enable --python widgetsnbextension
 RUN jupyter nbextension enable --python nbmolviz
-
+RUN cp -r  /home/main/anaconda2/lib/python2.7/site-packages/moldesign/_notebooks/ /mdt-examples
 ENV PYTHONPATH=/opt:$PYTHONPATH
+WORKDIR /mdt-examples
