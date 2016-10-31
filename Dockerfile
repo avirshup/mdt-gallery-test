@@ -1,5 +1,3 @@
-FROM andrewosh/binder-base
-
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda update -q conda
 
@@ -33,6 +31,10 @@ RUN apt-get install -y \
 
 RUN jupyter nbextension enable --python widgetsnbextension
 RUN jupyter nbextension enable --python nbmolviz
-RUN cp -r  /home/main/anaconda2/lib/python2.7/site-packages/moldesign/_notebooks/ /mdt-examples
-ENV PYTHONPATH=/opt:$PYTHONPATH
-WORKDIR /mdt-examples
+
+RUN cd /home/main/notebooks \
+ && cp -r  /home/main/anaconda2/lib/python2.7/site-packages/moldesign/_notebooks/ ./ \
+ && mv "Getting\ Started.ipynb" index.ipynb
+
+RUN python -c "from matplotlib.pyplot import *"  # build the font cache before deploying
+
