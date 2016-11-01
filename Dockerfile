@@ -33,10 +33,5 @@ RUN apt-get install -y \
 
 RUN jupyter nbextension enable --python widgetsnbextension
 RUN jupyter nbextension enable --python nbmolviz
-
-RUN cd /home/main/notebooks \
- && cp -r  /home/main/anaconda2/lib/python2.7/site-packages/moldesign/_notebooks/ ./ \
- && mv "Getting Started.ipynb" index.ipynb
-
 RUN python -c "from matplotlib.pyplot import *"  # build the font cache before deploying
 
